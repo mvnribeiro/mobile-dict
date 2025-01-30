@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
-import { 
-  FlatList, 
-  View, 
-  Text, 
-  ActivityIndicator, 
-  StyleSheet, 
-  TouchableOpacity,
-  Dimensions 
+import {
+  FlatList,
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  Dimensions
 } from 'react-native'
 import { database, ref, get, query, limitToFirst } from '../../firebaseConfig'
+import Button from './Button'
 
 const NUM_COLUMNS = 3
 const ITEM_MARGIN = 4
@@ -57,16 +56,12 @@ const WordsListDisplay = () => {
           numColumns={NUM_COLUMNS}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <TouchableOpacity 
-              style={[styles.gridItem, { 
-                width: ITEM_WIDTH,
-                marginHorizontal: ITEM_MARGIN,
-                marginVertical: ITEM_MARGIN
-              }]}
-              onPress={() => handleSelectWord(item)}
-            >
-              <Text style={styles.gridItemText}>{item}</Text>
-            </TouchableOpacity>
+            <Button
+              text={ item }
+              onPress={ () => handleSelectWord(item) }
+              width={ ITEM_WIDTH }
+              margin={ ITEM_MARGIN }
+            />
           )}
         />
       )}
@@ -80,23 +75,6 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     padding: ITEM_MARGIN,
-  },
-  gridItem: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  gridItemText: {
-    fontSize: 16,
-    fontWeight: '500',
-    textAlign: 'center',
   }
 })
 
