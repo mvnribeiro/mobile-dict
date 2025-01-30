@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View } from 'react-native'
 import WordsListDisplay from './components/WordsListDisplay'
 
 export default function Home() {
@@ -6,11 +6,11 @@ export default function Home() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <WordsListDisplay />
     </View>
-  );
+  )
 }
