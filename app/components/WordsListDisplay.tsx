@@ -17,8 +17,10 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 const ITEM_WIDTH = 
   (SCREEN_WIDTH - (ITEM_MARGIN * 2 * (NUM_COLUMNS + 1))) / NUM_COLUMNS
 
+type Word = string
+
 const WordsListDisplay = () => {
-  const [words, setWords] = useState([])
+  const [words, setWords] = useState<Word[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const WordsListDisplay = () => {
       const wordsRef = query(ref(database), limitToFirst(20))
       const snapshot = await get(wordsRef)
       const data = snapshot.val()
-      const words = Object.keys(data)
+      const words: Word[] = Object.keys(data)
       setWords(words)
     } catch (error) {
       console.error('Error fetching words:', error)
@@ -40,7 +42,7 @@ const WordsListDisplay = () => {
     }
   }
 
-  const handleSelectWord = (word) => {
+  const handleSelectWord = (word: Word) => {
     (console.log('word clicked', word))
   }
 
