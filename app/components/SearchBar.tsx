@@ -1,25 +1,19 @@
-import React, { useState } from 'react'
 import { TextInput, View, StyleSheet } from 'react-native'
 
-interface SearchBarProps {
-  onSearch: (query: string) => void
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState('')
-
-  const handleSearch = (text: string) => {
-    setQuery(text)
-    onSearch(text)
-  }
-
+const SearchBar = ({ 
+  onSearch,
+  currentQuery 
+}: { 
+  onSearch: (query: string) => void;
+  currentQuery: string;
+}) => {
   return (
-    <View style={styles.container}>
+    <View style={ styles.container }>
       <TextInput
         style={styles.input}
         placeholder='Search for a word...'
-        value={query}
-        onChangeText={handleSearch}
+        value={ currentQuery }
+        onChangeText={ onSearch }
       />
     </View>
   )
