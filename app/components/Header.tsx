@@ -1,26 +1,25 @@
-// app/components/PersistentHeader.tsx
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, Pressable, Text, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
 
 export default function PersistentHeader() {
   return (
     <View style={styles.container}>
       <Link href='/' asChild>
-        <TouchableOpacity style={styles.button}>
+        <Pressable style={styles.button}>
           <Text style={styles.text}>Words</Text>
-        </TouchableOpacity>
+        </Pressable>
       </Link>
 
       <Link href='/history' asChild>
-        <TouchableOpacity style={styles.button}>
+        <Pressable style={styles.button}>
           <Text style={styles.text}>History</Text>
-        </TouchableOpacity>
+        </Pressable>
       </Link>
 
       <Link href='/favorites' asChild>
-        <TouchableOpacity style={styles.button}>
+        <Pressable style={styles.button}>
           <Text style={styles.text}>Favorites</Text>
-        </TouchableOpacity>
+        </Pressable>
       </Link>
     </View>
   )
