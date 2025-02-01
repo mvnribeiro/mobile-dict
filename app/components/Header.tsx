@@ -1,20 +1,23 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native'
 import { Link } from 'expo-router'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export default function PersistentHeader() {
+export default function Header() {
   return (
-    <View style={styles.container}>
-      <Link href='/' asChild>
+    <SafeAreaView style={{  backgroundColor: '#fff', marginTop: 12}}>
+      <View style={styles.container}>
+        <Link href='/' asChild>
         <Pressable style={styles.button}>
           <Text style={styles.text}>Words</Text>
         </Pressable>
       </Link>
 
-      <Link href='/history' asChild>
+        <Link href='/history' asChild>
         <Pressable style={styles.button}>
           <Text style={styles.text}>History</Text>
         </Pressable>
-      </Link>
+
+        </Link>
 
       <Link href='/favorites' asChild>
         <Pressable style={styles.button}>
@@ -22,6 +25,7 @@ export default function PersistentHeader() {
         </Pressable>
       </Link>
     </View>
+    </SafeAreaView>
   )
 }
 
@@ -32,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     backgroundColor: '#fff',
-    marginTop: 24,
+    marginTop: 12,
     paddingHorizontal: 8
   },
   button: {
@@ -41,8 +45,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingVertical: 16,
-    borderRightWidth: 2,
-    borderColor: '#333',
+    borderTopWidth: 3,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderRadius: 6,
+    borderColor: '#ccc',
   },
   text: {
     fontWeight: '500',
