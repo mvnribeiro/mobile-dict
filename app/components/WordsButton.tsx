@@ -8,7 +8,7 @@ type ButtonProps = {
   margin?: number,
 }
 
-const Button = React.forwardRef<View, ButtonProps>(
+const WordsButton = React.forwardRef<View, ButtonProps>(
   ({ text, onPress, width, margin }, ref) => {
     return (
       <Pressable
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Button
+export default WordsButton

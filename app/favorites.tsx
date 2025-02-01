@@ -1,9 +1,6 @@
-import { View, Text } from 'react-native'
+import WordsListDisplay from './components/WordsListDisplay'
 
-export default function Favorites() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Favorites Screen</Text>
-    </View>
-  )
+export default function History() {
+  const history = ['word1', 'word2', 'word3']
+  return <WordsListDisplay userDataWords={history} disablePagination />
 }

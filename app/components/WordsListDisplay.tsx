@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { Link } from 'expo-router'
 import { useWords } from '../../context/WordsContext'
-import Button from './Button'
+import WordsButton from './WordsButton'
 
 const NUM_COLUMNS = 3
 const ITEM_MARGIN = 4
@@ -52,7 +52,7 @@ const WordsListDisplay = ({
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
             <Link href={`/modal/WordDetails?word=${item}` as never} asChild>
-              <Button
+              <WordsButton
                 text={ item }
                 width={ ITEM_WIDTH }
                 margin={ ITEM_MARGIN }
