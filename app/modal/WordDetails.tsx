@@ -1,10 +1,10 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native'
 import { useLocalSearchParams, router } from 'expo-router'
 import { useWordDetails } from '../../hooks/useWordDetails'
 
 export default function WordDetailsModal() {
   const { word } = useLocalSearchParams()
-  const { details, loading, error } = useWordDetails(word)
+  const { details, loading, error } = useWordDetails(word as string)
 
   if (loading) {
     return (
@@ -24,10 +24,27 @@ export default function WordDetailsModal() {
   }
 
   return (
-    <View style={{ flex: 1, padding: 16 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{ details?.word }</Text>
-      <Text style={{ fontSize: 18 }}>{ details?.phonetics?.[0]?.text }</Text>
+    <ScrollView style={{ flex: 1, padding: 16 }}>
+      <View style={{ flex: 1, padding: 16 }}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{ details?.word }</Text>
+      </View>
+
+      {details?.phonetics && details.phonetics.length > 0 && (
+        <Text style={{ fontSize: 18 }}>{ details.phonetics[0].text }</Text>
+      )}
+
+      {details?.meanings?.map((meaning: any, index: number) => (
+        <View key={ index } >
+          <Text style={{ fontSize: 14 }}>{ meaning.partOfSpeech }</Text>
+          { meaning.definitions?.map((definition: any, defIndex: number) => (
+            <Text key={ defIndex } style={{ fontSize: 12 }}>
+              { definition.definition }
+            </Text>
+          ))}
+        </View>
+      ))}
+      
       <Text onPress={() => router.back()}>Close</Text>
-    </View>
+    </ScrollView>
   )
 }
