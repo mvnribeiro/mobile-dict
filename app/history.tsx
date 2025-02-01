@@ -1,9 +1,6 @@
-import { View, Text } from 'react-native'
+import WordsListDisplay from './components/WordsListDisplay'
 
 export default function History() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>History Content</Text>
-    </View>
-  )
+  const history = ['word1', 'word2', 'word3']
+  return <WordsListDisplay userDataWords={history} disablePagination />
 }

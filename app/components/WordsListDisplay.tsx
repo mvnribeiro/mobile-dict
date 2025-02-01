@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Dimensions,
+  Text
 } from 'react-native'
 import { Link } from 'expo-router'
 import { useWords } from '../../context/WordsContext'
@@ -16,19 +17,28 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 const ITEM_WIDTH =
   (SCREEN_WIDTH - (ITEM_MARGIN * 2 * (NUM_COLUMNS + 1))) / NUM_COLUMNS
 
-const WordsListDisplay = () => {
-  const {
-    words,
-    loading,
-    hasMore,
-    fetchWords
-  } = useWords()
+interface WordsListDisplayProps {
+  userDataWords?: string[]
+  disablePagination?: boolean
+}
+
+const WordsListDisplay = ({ 
+  userDataWords,
+  disablePagination = false 
+}: WordsListDisplayProps) => {
+  const context = useWords()
+  
+  const words = userDataWords || context.words
+  const loading = userDataWords ? false : context.loading
+  const hasMore = userDataWords ? false : context.hasMore
 
   const handleLoadMore = () => {
-    if (!loading && hasMore) {
-      fetchWords(true)
+    if (!disablePagination && !loading && hasMore) {
+      context.fetchWords(true)
     }
   }
+
+  console.log(words)
 
   return (
     <View style={styles.container}>
@@ -38,7 +48,7 @@ const WordsListDisplay = () => {
         <FlatList
           contentContainerStyle={styles.gridContainer}
           data={words}
-          numColumns={NUM_COLUMNS}
+          numColumns={ NUM_COLUMNS }
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
             <Link href={`/modal/WordDetails?word=${item}` as never} asChild>
@@ -49,8 +59,13 @@ const WordsListDisplay = () => {
               />
             </Link>
           )}
-          onEndReached={handleLoadMore}
+          onEndReached={ disablePagination ? undefined : handleLoadMore }
           onEndReachedThreshold={0.5}
+          ListEmptyComponent={
+            <Text style={ styles.emptyText }>
+              No items found
+            </Text>
+          }
         />
       )}
     </View>
@@ -64,6 +79,12 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     padding: ITEM_MARGIN,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+    color: '#666',
   }
 })
 
