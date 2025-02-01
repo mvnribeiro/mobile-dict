@@ -8,7 +8,6 @@ import {
 import { Link } from 'expo-router'
 import { useWords } from '../../context/WordsContext'
 import Button from './Button'
-import SearchBar from './SearchBar'
 
 const NUM_COLUMNS = 3
 const ITEM_MARGIN = 4
@@ -22,8 +21,6 @@ const WordsListDisplay = () => {
     words,
     loading,
     hasMore,
-    searchQuery,
-    setSearchQuery,
     fetchWords
   } = useWords()
 
@@ -35,9 +32,6 @@ const WordsListDisplay = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchBar}>
-        <SearchBar onSearch={ setSearchQuery } currentQuery={searchQuery} />
-      </View>
       {loading && words.length === 0 ? (
         <ActivityIndicator size='large' />
       ) : (
@@ -70,11 +64,7 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     padding: ITEM_MARGIN,
-  },
-  searchBar: {
-    width: '100%',
-    alignSelf: 'center'
-  },
+  }
 })
 
 export default WordsListDisplay
