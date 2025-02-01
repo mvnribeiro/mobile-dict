@@ -14,7 +14,7 @@ import {
   startAt,
   endAt,
   limitToFirst
-} from '../../firebaseConfig'
+} from '../firebaseConfig'
 
 type WordsContextType = {
   words: string[],

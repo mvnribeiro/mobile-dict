@@ -6,7 +6,7 @@ import {
   Dimensions,
 } from 'react-native'
 import { Link } from 'expo-router'
-import { useWords } from '../context/WordsContext'
+import { useWords } from '../../context/WordsContext'
 import Button from './Button'
 import SearchBar from './SearchBar'
 
