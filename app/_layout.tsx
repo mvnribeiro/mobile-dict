@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { View, StyleSheet } from 'react-native'
 import Header from './components/Header'
-import { WordsProvider } from '../context/WordsContext'
+import { WordsProvider } from './context/WordsContext'
 
 export default function RootLayout() {
   return (

@@ -12,10 +12,9 @@ import {
   query,
   orderByKey,
   startAt,
-  startAfter,
   endAt,
   limitToFirst
-} from '../firebaseConfig'
+} from '../../firebaseConfig'
 
 type WordsContextType = {
   words: string[],
@@ -63,12 +62,8 @@ export const WordsProvider = ({ children }: { children: React.ReactNode }) => {
       const data = snapshot.val()
       const fetchedWords = Object.keys(data)
   
-      console.log('Fetched words:', fetchedWords)
-      console.log('fetched length', fetchedWords.length)
-  
       if (fetchedWords.length > 0) {
         const newLastKey = fetchedWords[fetchedWords.length - 1]
-        console.log('New last key:', newLastKey)
         setLastKey(newLastKey)
 
         if (fetchedWords.length === 51) {

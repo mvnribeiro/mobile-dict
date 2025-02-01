@@ -6,7 +6,7 @@ import {
   Dimensions,
 } from 'react-native'
 import { Link } from 'expo-router'
-import { useWords } from '../../context/WordsContext'
+import { useWords } from '../context/WordsContext'
 import Button from './Button'
 import SearchBar from './SearchBar'
 
@@ -16,8 +16,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 
 const ITEM_WIDTH =
   (SCREEN_WIDTH - (ITEM_MARGIN * 2 * (NUM_COLUMNS + 1))) / NUM_COLUMNS
-
-type Word = string
 
 const WordsListDisplay = () => {
   const {
@@ -30,8 +28,6 @@ const WordsListDisplay = () => {
   } = useWords()
 
   const handleLoadMore = () => {
-    console.log('Load more triggered')
-    console.log('Has more', hasMore)
     if (!loading && hasMore) {
       fetchWords(true)
     }
