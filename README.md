@@ -3,6 +3,7 @@ Dicionário de palavras em inglês com funcionalidades de login, histórico e pa
 
 ### Tecnologias (Mobile):
 - React Native + Expo
+- Typescript
 - Context API
 - Firebase como banco de dados e autenticação
 
