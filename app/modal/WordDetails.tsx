@@ -101,16 +101,28 @@ export default function WordDetailsModal() {
       </View>
 
       {wordDetails?.meanings?.map((meaning: any, index: number) => (
-        <View key={ index } style={{ marginTop: 16 }}>
-          <Text
-            style={{ fontSize: 14, fontWeight: 'bold' }}
-          >
-            { meaning.partOfSpeech }
+        <View
+          key={index}
+          style={{ marginTop: 16, padding: 12, borderRadius: 10 }}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            {meaning.partOfSpeech}
           </Text>
+
           {meaning.definitions?.map((definition: any, defIndex: number) => (
-            <Text key={ defIndex } style={{ fontSize: 12 }}>
-              { definition.definition }
-            </Text>
+            <View
+              key={defIndex}
+              style={{
+                flexDirection: "row",
+                alignItems: "flex-start",
+                marginTop: 6,
+              }}
+            >
+              <Text style={{ fontSize: 14, marginRight: 6 }}>•</Text>
+              <Text style={{ fontSize: 14, color: "#444", flex: 1 }}>
+                {definition.definition}
+              </Text>
+            </View>
           ))}
         </View>
       ))}
