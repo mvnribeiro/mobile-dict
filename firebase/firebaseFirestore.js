@@ -8,7 +8,8 @@ import {
   deleteDoc,
   addDoc,
   arrayUnion,
-  arrayRemove
+  arrayRemove,
+  onSnapshot
 } from "firebase/firestore"
 import app from "./firebaseConfig"
 
@@ -24,6 +25,7 @@ export {
   deleteDoc, 
   addDoc,
   arrayUnion,
-  arrayRemove
+  arrayRemove,
+  onSnapshot
 }
 

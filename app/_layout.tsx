@@ -5,7 +5,7 @@ import Header from './components/Header'
 import { WordsProvider } from '../context/WordsContext'
 import LoginScreen from './login'
 import { AuthProvider, useAuth } from '../context/AuthContext'
-import { UserProvider } from '../context/UserContext'
+import { UserDataProvider } from '../context/UserDataContext'
 
 function RootLayoutContent() {
   const { user, loading } = useAuth()
@@ -23,7 +23,7 @@ function RootLayoutContent() {
 
   return (
     <WordsProvider>
-      <UserProvider>
+      <UserDataProvider>
         <View style={styles.container}>
           <ExpoStatusBar style="dark" backgroundColor="#FFF" />
           <Header />
@@ -33,7 +33,7 @@ function RootLayoutContent() {
             <Stack.Screen name='favorites' />
           </Stack>
         </View>
-      </UserProvider>
+      </UserDataProvider>
     </WordsProvider>
   )
 }

@@ -1,7 +1,7 @@
 import WordsListDisplay from './components/WordsListDisplay'
-import { useUser } from '../context/UserContext'
+import { useUserData } from '../context/UserDataContext'
 
 export default function History() {
-  const { favorites } = useUser()
+  const { favorites } = useUserData()
   return <WordsListDisplay userDataWords={ favorites } disablePagination />
 }

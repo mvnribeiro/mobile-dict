@@ -3,14 +3,14 @@ import { useState, useEffect } from 'react'
 import { useLocalSearchParams, router } from 'expo-router'
 import { useWordDetails } from '../../hooks/useWordDetails'
 import { useAuth } from '../../context/AuthContext'
-import { useUser } from '../../context/UserContext' 
+import { useUserData } from '../../context/UserDataContext' 
 import { addToHistory, toggleFavorite } from '../../services/userService'
 import { MaterialIcons } from '@expo/vector-icons'
 
 export default function WordDetailsModal() {
   const { word } = useLocalSearchParams()
   const { wordDetails, loading, error } = useWordDetails(word as string)
-  const { favorites, history } = useUser()
+  const { favorites, history } = useUserData()
   const [isFavorite, setIsFavorite] = useState(false)
   const { user } = useAuth()
 
@@ -19,8 +19,9 @@ export default function WordDetailsModal() {
       setIsFavorite(favorites.includes(word.toString()))
       addToHistory(user.uid, word as string)
     }
-  }, [word, favorites, history])
-
+  }, [favorites, history])
+  
+  console.log('dets', wordDetails)
   const handleFavorite = async () => {
     if (user) {
       setIsFavorite(!isFavorite)
