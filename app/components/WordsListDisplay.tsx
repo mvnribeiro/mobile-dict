@@ -41,9 +41,10 @@ const WordsListDisplay = ({
   return (
     <View style={styles.container}>
       {loading && words.length === 0 ? (
-        <ActivityIndicator size='large' />
+        <ActivityIndicator testID="loadingIndicator" size='large' />
       ) : (
         <FlatList
+          testID="words-list"
           contentContainerStyle={styles.gridContainer}
           data={words}
           numColumns={ NUM_COLUMNS }
