@@ -5,6 +5,7 @@ import Header from './components/Header'
 import { WordsProvider } from '../context/WordsContext'
 import LoginScreen from './login'
 import { AuthProvider, useAuth } from '../context/AuthContext'
+import { UserProvider } from '../context/UserContext'
 
 function RootLayoutContent() {
   const { user, loading } = useAuth()
@@ -14,7 +15,7 @@ function RootLayoutContent() {
 
   if (loading) {
     return (
-      <view style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <view style={ styles.loadingContainer }>
         <ActivityIndicator size='large' />
       </view>
     ) 
@@ -22,15 +23,17 @@ function RootLayoutContent() {
 
   return (
     <WordsProvider>
-      <View style={styles.container}>
-        <ExpoStatusBar style="dark" backgroundColor="#FFF" />
-        <Header />
-        <Stack screenOptions={{ header: () => null }}>
-          <Stack.Screen name='index' />
-          <Stack.Screen name='history' />
-          <Stack.Screen name='favorites' />
-        </Stack>
-      </View>
+      <UserProvider>
+        <View style={styles.container}>
+          <ExpoStatusBar style="dark" backgroundColor="#FFF" />
+          <Header />
+          <Stack screenOptions={{ header: () => null }}>
+            <Stack.Screen name='index' />
+            <Stack.Screen name='history' />
+            <Stack.Screen name='favorites' />
+          </Stack>
+        </View>
+      </UserProvider>
     </WordsProvider>
   )
 }
@@ -46,5 +49,10 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
