@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const useWordDetails = (word: string | string[] | undefined) => {
-  const [details, setDetails] = useState<any>(null)
+  const [wordDetails, setWordDetails] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -17,7 +17,7 @@ export const useWordDetails = (word: string | string[] | undefined) => {
       try {
         const cacheData = await AsyncStorage.getItem(cacheKey)
         if (cacheData) {
-          setDetails(JSON.parse(cacheData))
+          setWordDetails(JSON.parse(cacheData))
           setLoading(false)
           return
         }
@@ -28,10 +28,17 @@ export const useWordDetails = (word: string | string[] | undefined) => {
         if (!response.ok) throw new Error('Word not found')
 
         const data = await response.json()
-        const detailsData = data[0]
+        const wordDetailsData = data[0]
 
-        await AsyncStorage.setItem(cacheKey, JSON.stringify(detailsData))
-        setDetails(detailsData)
+        const wordPronunciation = 
+          wordDetailsData.phonetics.find((phonetic: any) => phonetic.audio)
+        
+        if (wordPronunciation) {
+          wordDetailsData.pronunciation = wordPronunciation.audio
+        }
+
+        await AsyncStorage.setItem(cacheKey, JSON.stringify(wordDetailsData))
+        setWordDetails(wordDetailsData)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch details')
       } finally {
@@ -42,5 +49,5 @@ export const useWordDetails = (word: string | string[] | undefined) => {
     fetchWordDetails()
   }, [word])
 
-  return { details, loading, error }
+  return { wordDetails, loading, error }
 }

@@ -38,8 +38,6 @@ const WordsListDisplay = ({
     }
   }
 
-  console.log(words)
-
   return (
     <View style={styles.container}>
       {loading && words.length === 0 ? (

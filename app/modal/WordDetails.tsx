@@ -9,7 +9,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 
 export default function WordDetailsModal() {
   const { word } = useLocalSearchParams()
-  const { details, loading, error } = useWordDetails(word as string)
+  const { wordDetails, loading, error } = useWordDetails(word as string)
   const { favorites, history } = useUser()
   const [isFavorite, setIsFavorite] = useState(false)
   const { user } = useAuth()
@@ -69,16 +69,16 @@ export default function WordDetailsModal() {
         style={{ flex: 1, padding: 16, backgroundColor: '#a9dfbf', borderRadius: 12, alignItems: 'center' }}
       >
         <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-          { details?.word }
+          { wordDetails?.word }
         </Text>
-        {details?.phonetics && details.phonetics.length > 0 && (
+        {wordDetails?.phonetics && wordDetails.phonetics.length > 0 && (
           <Text style={{ fontSize: 18, color: '#666' }}>
-            { details.phonetics[0].text }
+            { wordDetails.phonetics[0].text }
           </Text>
         )}
       </View>
 
-      {details?.meanings?.map((meaning: any, index: number) => (
+      {wordDetails?.meanings?.map((meaning: any, index: number) => (
         <View key={ index } style={{ marginTop: 16 }}>
           <Text
             style={{ fontSize: 14, fontWeight: 'bold' }}
