@@ -14,7 +14,7 @@ import {
   startAt,
   endAt,
   limitToFirst
-} from '../firebaseConfig'
+} from '../firebase/firebaseDatabase'
 
 type WordsContextType = {
   words: string[],
