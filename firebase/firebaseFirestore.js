@@ -3,7 +3,12 @@ import {
   collection,
   doc,
   setDoc,
-  getDoc
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  addDoc,
+  arrayUnion,
+  arrayRemove
 } from "firebase/firestore"
 import app from "./firebaseConfig"
 
@@ -14,6 +19,11 @@ export {
   collection, 
   doc, 
   setDoc, 
-  getDoc,
+  getDoc, 
+  updateDoc, 
+  deleteDoc, 
+  addDoc,
+  arrayUnion,
+  arrayRemove
 }
 

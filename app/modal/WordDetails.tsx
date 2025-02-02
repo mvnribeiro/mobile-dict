@@ -1,13 +1,32 @@
 import { View, Text, ActivityIndicator, ScrollView, Pressable } from 'react-native'
+import { useState, useEffect } from 'react'
 import { useLocalSearchParams, router } from 'expo-router'
 import { useWordDetails } from '../../hooks/useWordDetails'
+import { useAuth } from '../../context/AuthContext'
+import { useUser } from '../../context/UserContext' 
+import { addToHistory, toggleFavorite } from '../../services/userService'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useState } from 'react'
 
 export default function WordDetailsModal() {
   const { word } = useLocalSearchParams()
   const { details, loading, error } = useWordDetails(word as string)
+  const { favorites, history } = useUser()
   const [isFavorite, setIsFavorite] = useState(false)
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (user && word) {
+      setIsFavorite(favorites.includes(word.toString()))
+      addToHistory(user.uid, word as string)
+    }
+  }, [word, favorites, history])
+
+  const handleFavorite = async () => {
+    if (user) {
+      setIsFavorite(!isFavorite)
+      await toggleFavorite(user.uid, word as string, isFavorite)
+    }
+  }
 
   if (loading) {
     return (
@@ -41,7 +60,7 @@ export default function WordDetailsModal() {
           <MaterialIcons name="close" size={ 28 } color="black" />
         </Pressable>
 
-        <Pressable onPress={() => setIsFavorite(!isFavorite)}>
+        <Pressable onPress={ handleFavorite }>
           <MaterialIcons name={ isFavorite ? 'favorite' : 'favorite-outline' } size={ 28 } color={ isFavorite ? 'red' : 'black' } />
         </Pressable>
       </View>
@@ -64,7 +83,7 @@ export default function WordDetailsModal() {
           <Text
             style={{ fontSize: 14, fontWeight: 'bold' }}
           >
-            {meaning.partOfSpeech}
+            { meaning.partOfSpeech }
           </Text>
           {meaning.definitions?.map((definition: any, defIndex: number) => (
             <Text key={ defIndex } style={{ fontSize: 12 }}>

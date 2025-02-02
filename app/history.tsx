@@ -1,6 +1,7 @@
 import WordsListDisplay from './components/WordsListDisplay'
+import { useUser } from '../context/UserContext'
 
 export default function History() {
-  const history = ['word1', 'word2', 'word3']
-  return <WordsListDisplay userDataWords={history} disablePagination />
+  const { history } = useUser()
+  return <WordsListDisplay userDataWords={ history } disablePagination />
 }
