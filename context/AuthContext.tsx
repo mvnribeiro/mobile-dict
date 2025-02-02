@@ -1,4 +1,3 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
 import {
   auth,
   onAuthStateChanged,
@@ -6,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   User
 } from '../firebase/firebaseAuth'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 interface AuthContextProps {
   user: User | null,

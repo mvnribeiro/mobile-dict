@@ -1,10 +1,25 @@
-import { View, Pressable, Text, StyleSheet } from 'react-native'
+import { View, Pressable, Text, StyleSheet, Alert } from 'react-native'
 import { Link } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useAuth } from '../../context/AuthContext'
 
 export default function Header() {
+  const { logout } = useAuth()
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+    } catch (error) {
+      Alert.alert('Logout failed:', (error as Error).message)
+    }
+  }
   return (
     <SafeAreaView style={{  backgroundColor: '#fff', marginTop: 12}}>
+      <Pressable onPress={ handleLogout }>
+        <Text style={{ alignSelf: 'flex-end', marginRight: 12 }}>
+          Logout
+        </Text>
+      </Pressable>
       <View style={styles.container}>
         <Link href='/' asChild>
         <Pressable style={styles.button}>
