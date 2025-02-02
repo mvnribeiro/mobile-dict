@@ -15,6 +15,7 @@ import {
   endAt,
   limitToFirst
 } from '../firebase/firebaseDatabase'
+import { Alert } from 'react-native'
 
 type WordsContextType = {
   words: string[],
@@ -60,6 +61,13 @@ export const WordsProvider = ({ children }: { children: React.ReactNode }) => {
   
       const snapshot = await get(wordsRef)
       const data = snapshot.val()
+
+      if (!data) {
+        setWords([])
+        setHasMore(false)
+        return
+      }
+
       const fetchedWords = Object.keys(data)
   
       if (fetchedWords.length > 0) {
@@ -82,7 +90,7 @@ export const WordsProvider = ({ children }: { children: React.ReactNode }) => {
         setHasMore(false)
       }
     } catch (error) {
-      console.error('Error fetching words:', error)
+      Alert.alert('Error fetching words:', (error as Error).message)
     } finally {
       setLoading(false)
     }
