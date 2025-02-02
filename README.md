@@ -8,6 +8,10 @@ Dicionário de palavras em inglês com funcionalidades de login, histórico e pa
 - Firebase como banco de dados e autenticação
 
 ### Rodando o projeto
+  `npm install expo-cli -g `
+  
+  `npm install react-native-cli -g `
+  
   `npm install`
 
   `npm run android` / `npm run ios` / `npm run web`
