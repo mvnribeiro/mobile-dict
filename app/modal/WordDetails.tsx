@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useUserData } from '../../context/UserDataContext' 
 import { addToHistory, toggleFavorite } from '../../services/userService'
 import { MaterialIcons } from '@expo/vector-icons'
+import { Audio } from 'expo-av'
 
 export default function WordDetailsModal() {
   const { word } = useLocalSearchParams()
@@ -20,12 +21,25 @@ export default function WordDetailsModal() {
       addToHistory(user.uid, word as string)
     }
   }, [favorites, history])
-  
-  console.log('dets', wordDetails)
+
   const handleFavorite = async () => {
     if (user) {
       setIsFavorite(!isFavorite)
       await toggleFavorite(user.uid, word as string, isFavorite)
+    }
+  }
+
+  const playPronunciation = async () => {
+    try {
+      if (wordDetails?.pronunciation) {
+        const { sound } = await Audio.Sound.createAsync(
+          { uri: wordDetails.pronunciation },
+          { shouldPlay: true }
+        )
+        await sound.playAsync()
+      }
+    } catch (error) {
+      console.log('Could not play pronunciation')
     }
   }
 
@@ -67,11 +81,18 @@ export default function WordDetailsModal() {
       </View>
 
       <View
-        style={{ flex: 1, padding: 16, backgroundColor: '#a9dfbf', borderRadius: 12, alignItems: 'center' }}
+        style={{ flex: 1, padding: 16, backgroundColor: '#9999', borderRadius: 12, alignItems: 'center' }}
       >
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-          { wordDetails?.word }
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+          <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
+            { wordDetails?.word }
+          </Text>
+          {wordDetails?.pronunciation && (
+            <Pressable onPress={ playPronunciation }>
+              <MaterialIcons name="volume-up" size={ 24 } color="#666" />
+            </Pressable>
+          )}
+        </View>
         {wordDetails?.phonetics && wordDetails.phonetics.length > 0 && (
           <Text style={{ fontSize: 18, color: '#666' }}>
             { wordDetails.phonetics[0].text }
