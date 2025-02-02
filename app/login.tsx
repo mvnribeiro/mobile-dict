@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, TextInput, Button, StyleSheet, Alert } from 'react-native'
 import { useAuth } from '../context/AuthContext'
 
 export default function LoginScreen() {
@@ -11,7 +11,7 @@ export default function LoginScreen() {
     try {
       await login(email, password)
     } catch (error) {
-      console.log('Login Failed', error.message)
+      Alert.alert('Login Failed', (error as Error).message)
     }
   }
 
@@ -19,7 +19,7 @@ export default function LoginScreen() {
     try {
       await register(email, password)
     } catch (error) {
-      console.log('Registration Failed', error.message)
+      Alert.alert('Registration Failed', (error as Error).message)
     }
   }
 
@@ -38,6 +38,7 @@ export default function LoginScreen() {
         value={password}
         onChangeText={ setPassword }
         secureTextEntry
+        autoCapitalize='none'
       />
       <Button
         title='Login'

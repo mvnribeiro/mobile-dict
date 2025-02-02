@@ -14,6 +14,7 @@ const SearchBar = ({
         placeholder='Search for a word...'
         value={ currentQuery }
         onChangeText={ onSearch }
+        autoCapitalize="none"
       />
     </View>
   )
